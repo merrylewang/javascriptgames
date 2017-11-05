@@ -1,31 +1,58 @@
 var game = new Array(9);
+var gameToReveal = new Array(9)
 var board = document.createElement("PRE");
+
 var button = document.createElement("BUTTON");
+var turn = 1
 
 function initialize()
 {
   for (i = 0; i < 9; i++)
   {
-    game[i] = new Array(9);
-    for (j = 0; j < 9; j++)
+    game[i] = new Array(19);
+    gameToReveal[i] = new Array(19)
+    for (j = 0; j < 19; j++)
     {
-      game[i][j] = ".";
+      if (j == 9)
+      {
+        game[i][j] = "|";
+        gameToReveal[i][j] = "|";
+      }
+      else
+      {
+        game[i][j] = ".";
+        gameToReveal[i][j] = ".";
+      }
     }
   }
-
+  //creates board
   document.body.appendChild(board);
   button.onclick = fire;
 
+  //Creates Fire button
   var t = document.createTextNode("Fire!");
   document.body.appendChild(button);
   button.appendChild(t);
 
   board.innerHTML = drawBoard();
 
+  placeShips()
+  placeShips()
+
+  board.innerHTML = drawBoard();
+}
+
+function placeShips()
+{
+  var constant = 0
+  if (turn == 2)
+  {
+    constant += 10;
+  }
   var x = prompt("Where do you want to put your ship? Enter X coord: (0-8)");
   var y = prompt("Where do you want to put your ship? Enter Y coord: (0-8)");
   var direction = prompt("Place (h)orizontally or (v)ertically");
-  x = Number(x);
+  x = Number(x) + constant;
   y = Number(y);
 
   if (direction[0] == "h")
@@ -33,7 +60,14 @@ function initialize()
     var c;
     for (c = x; c < (x + 4); c++)
     {
-      game[y][c] = '$';
+      if (turn == 1 && c >= 9)
+      {
+
+      }
+      else
+      {
+        game[y][c] = '$';
+      }
     }
   }
 
@@ -42,11 +76,10 @@ function initialize()
     var c;
     for (c = y; c < (y + 4); c++)
     {
-      game[c][y] = '$';
+      game[c][x] = '$';
     }
   }
-
-  board.innerHTML = drawBoard();
+  turn = 3 - turn
 }
 
 function drawBoard()
@@ -56,9 +89,9 @@ function drawBoard()
   var j;
   for (i = 0; i < 9; i++)
   {
-    for (j = 0; j < 9; j++)
+    for (j = 0; j < 19; j++)
     {
-      boardContents = boardContents + game[i][j] + " ";
+      boardContents = boardContents + gameToReveal[i][j] + " ";
     }
     boardContents += "<br>";
   }
@@ -67,42 +100,51 @@ function drawBoard()
 
 function fire()
 {
+  var constant = 0
+  if (turn == 1)
+  {
+    constant += 10;
+  }
   var x = prompt("Where do you want to fire? Enter X coord: (0-8)");
   var y = prompt("Where do you want to fire? Enter Y coord: (0-8)");
-  fireX = Number(x);
+  fireX = Number(x) + constant;
   fireY = Number(y);
 
   if (game[fireY][fireX] == '.')
   {
     alert("You missed!");
+    gameToReveal[fireY][fireX] = "#";
+    board.innerHTML = drawBoard();
   }
-  else if (game[fireY][fireX] == "*")
+  else if (gameToReveal[fireY][fireX] == "*")
   {
     alert("You already hit that ship there!");
   }
-  else
+  else if (game[fireY][fireX] == '$')
   {
     alert("Boomshakalaka! You hit it!");
-    game[fireY][fireX] = "*";
+    gameToReveal[fireY][fireX] = "*";
     board.innerHTML = drawBoard();
   }
-  var shipfound;
+  var hitcounts = 0;
   var i;
   var j;
   for (i = 0; i < 9; i++)
   {
     for (j = 0; j < 9; j++)
     {
-      if (game[i][j] != "." && game[i][j] != "*")
+      if (gameToReveal[i][j + constant] == "*")
       {
-        shipfound = true;
+        hitcounts += 1;
+
       }
     }
   }
-
-  if (!shipfound)
+  if (hitcounts == 4)
   {
-    alert("All ships have been sunk. Game over");
+    alert("All ships have been sunk. Game over. Player " + String(turn) + " wins");
     document.body.removeChild(button);
   }
+
+  turn = 3 - turn
 }
