@@ -87,12 +87,22 @@ function drawBoard()
   var boardContents = "";
   var i;
   var j;
-  for (i = 0; i < 9; i++)
+  for (i = 0; i < 10; i++)
   {
+    boardContents = boardContents + (i - 1) + " ";
     for (j = 0; j < 19; j++)
     {
-      boardContents = boardContents + gameToReveal[i][j] + " ";
+      if (i == 0)
+      {
+        boardContents = "  0 1 2 3 4 5 6 7 8   0 1 2 3 4 5 6 7 8";
+        break;
+      }
+      else
+      {
+        boardContents = boardContents + gameToReveal[i - 1][j] + " ";
+      }
     }
+
     boardContents += "<br>";
   }
   return boardContents;
