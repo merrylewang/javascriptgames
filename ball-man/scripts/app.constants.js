@@ -1,13 +1,15 @@
 var APP = {};
-(function () {
+(function ()
+{
   "use strict";
+
   //used for map's size and each cell's size
   APP.MAP_WIDTH = 28;
   APP.MAP_HEIGHT = 31;
   APP.CELL_WIDTH = 20;
   APP.CELL_HEIGHT = 20;
   APP.BG_COLOR = "#000000";
-  APP.GAME_FPS = 40;
+  APP.GAME_FPS = 60;
   APP.PLAYER_SPEED = 8;
   APP.INITIAL_PLAYER_FRAME = 8;
   APP.INITIAL_PLAYER_X = 14;
@@ -25,8 +27,10 @@ var APP = {};
   APP.SECOND_PORTAL_X = 510;
   APP.SECOND_PORTAL_Y = 265;
   APP.MONSTERS_QUANTITY = 4;
+
+
+  //for the shy guy's speed and position.
   APP.INKY_SPEED = 7;
-  //for the cat's speed and position.
   APP.INITIAL_INKY_X = 12;
   APP.INITIAL_INKY_Y = 14;
   APP.INITIAL_INKY_FRAME = 7;

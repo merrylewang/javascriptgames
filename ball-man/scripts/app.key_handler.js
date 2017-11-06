@@ -1,16 +1,19 @@
-APP.Keydown_Handler = function (event) {
+APP.Keydown_Handler = function (event)
+{
   "use strict";
-  var KEYS = {
+  var KEYS =
+  {
     /* We will initialize the arrow keys first. 37 = left key, 38
       = up key, 39 = right key and 40 = down key. */
     LEFT    : 37,
     UP      : 38,
     RIGHT   : 39,
     DOWN    : 40
-  }; 
-  /* This switch-case will handle the key pressing and the rat's
+  };
+  /* This switch-case will handle the key pressing and the player's
     movement. */
-  switch (event.keyCode) {
+  switch (event.keyCode)
+  {
     case KEYS.UP:
       APP.player.direction = APP.Direction.UP;
       break;
