@@ -79,4 +79,11 @@ var hangman = angular.module('hangman', []).controller('StartHangman', StartHang
       $scope.stage = "lost";
     }
   }
+  $scope.restart = function()
+  {
+    $scope.stage = "initial";
+    $scope.secretWords = "";
+    $scope.answer = "";
+    $scope.failedGuess = [];
+  }
 }

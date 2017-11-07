@@ -40,13 +40,13 @@
     <div ng-show="stage == 'won'">
       <h1>You Win! :)</h1>
       <h2>That's right, the secret word is {{ secretWords }}</h2>
-      <p>Press F5 to replay</p>
+      <button ng-click="restart()">Replay</button>
     </div>
 
     <div ng-show="stage == 'lost'">
       <h1>You Lose</h1>
       <h2>The secret word was {{ secretWords }}</h2>
-      <p>Press F5 to replay</p>
+      <button ng-click="restart()">Replay</button>
     </div>
 
     <script src="js/words.js"></script>
